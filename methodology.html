@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Methodology · Mapping Air Quality</title>
-  <meta name="description" content="Datasets, tools and the eight-step processing pipeline used to map air quality and land cover in Romania." />
+  <meta name="description"
+    content="Datasets, tools and the eight-step processing pipeline used to map air quality and land cover in Romania." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 
   <header class="site-header">
@@ -81,7 +86,8 @@
         <div class="step-num">01</div>
         <div>
           <h3>Monthly aggregated maps for December 2023</h3>
-          <p>Monthly mean aggregation simplifies analysis of the pollution data. For December 2023, the procedure consisted in:</p>
+          <p>Monthly mean aggregation simplifies analysis of the pollution data. For December 2023, the procedure
+            consisted in:</p>
           <ol>
             <li>Download the CAMS European Air Quality Reanalysis (2023 hourly mesh dataset).</li>
             <li>Assign projection <b>EPSG:4326 · WGS 84</b> to avoid compatibility issues.</li>
@@ -103,8 +109,9 @@
         <div>
           <h3>Yearly aggregated maps for 2021 &amp; 2023</h3>
           <p>A yearly mean across the twelve monthly rasters produces the annual layers, computed with
-            <b>r.series</b> (aggregation = mean).</p>
-          </div>
+            <b>r.series</b> (aggregation = mean).
+          </p>
+        </div>
       </div>
 
       <!-- STEP 3 -->
@@ -114,7 +121,8 @@
           <h3>Concentration maps per pollutant for 2023</h3>
           <p>The EU sets annual-mean limits per pollutant, and concentration is reported on five levels.
             Binning follows the EEA ranges via
-            <i>Processing Toolbox → Raster analysis → Reclassify by table</i>.</p>  
+            <i>Processing Toolbox → Raster analysis → Reclassify by table</i>.
+          </p>
         </div>
       </div>
 
@@ -126,13 +134,17 @@
           <p>Change between 2021 and 2023 is quantified as the annual-mean difference, enabling change
             detection, hotspot identification and later correlation analysis.</p>
           <ol>
-            <li>Raster calculator: <code>average&nbsp;POLLUTANT&nbsp;2023 − average&nbsp;POLLUTANT&nbsp;2021</code>.</li>
+            <li>Raster calculator: <code>average&nbsp;POLLUTANT&nbsp;2023 − average&nbsp;POLLUTANT&nbsp;2021</code>.
+            </li>
             <li>Apply discrete symbology to the rate of change:</li>
           </ol>
           <ul class="legend-list" style="margin-left:1.1rem;">
-            <li><span class="swatch" style="background:var(--increase)"></span> <b>&gt; 0 μg/m³</b> — pollution increase · "environmental risk zones."</li>
-            <li><span class="swatch" style="background:var(--decrease)"></span> <b>&lt; 0 μg/m³</b> — pollution decrease · "improvement zones."</li>
-            <li><span class="swatch" style="background:var(--neutral)"></span> <b>≈ 0 μg/m³</b> — atmospheric stability · no significant change.</li>
+            <li><span class="swatch" style="background:var(--increase)"></span> <b>&gt; 0 μg/m³</b> — pollution increase
+              · "environmental risk zones."</li>
+            <li><span class="swatch" style="background:var(--decrease)"></span> <b>&lt; 0 μg/m³</b> — pollution decrease
+              · "improvement zones."</li>
+            <li><span class="swatch" style="background:var(--neutral)"></span> <b>≈ 0 μg/m³</b> — atmospheric stability
+              · no significant change.</li>
           </ul>
           <div class="note"><b>Comment</b> Overall stability across the country, with a slight decrease
             in pollutant concentrations. These AMAC maps are the minimum required WebGIS layer.</div>
@@ -144,18 +156,24 @@
         <div class="step-num">05</div>
         <div>
           <h3>Land cover change map &amp; statistics — 2021→2023</h3>
-          <p>Land cover change (LCC) maps summarise how classes shift over time, allowing persistence,
-            sources of gain and sources of loss to be calculated per class.</p>
+          <p>Land cover change (LCC) maps provide a visual representation of land cover transitions between two points
+            in time. In addition to visualizing these changes, they enable the calculation of metrics such as
+            persistence, sources of gain, and sources of loss for each land cover class, providing a more detailed
+            understanding of the observed transitions.
+
+            The LCC maps and the associated statistics were generated using the following workflow:
+          </p>
           <ul>
             <li>Download ESRI 10 m Land Cover for 2021 and 2023 (Romania).</li>
-            <li>Reproject to EPSG:4326; build virtual rasters from the tiles; clip to boundaries.</li>
+            <li>Reproject to EPSG:4326, build virtual rasters from the tiles and clip to boundaries.</li>
             <li>Compute LCC with <code>("LC_2021" × 100) + "LC_2023"</code>.</li>
-            <li>Per class of interest — Built Area (NO₂), Trees (PM10), Crops (PM2.5) — compute
+            <li>Per class of interest (Built Area (NO₂), Trees (PM10) and Crops (PM2.5)), compute
               persistence, top-3 sources of gain and top-3 destinations of loss (pixelwise).</li>
             <li>Bonus: report area percentage, not just pixel percentage.</li>
           </ul>
           <div class="note"><b>Comment</b> To report true area, rasters were reprojected to
-            <b>Pulkovo 1942</b> before computing per-class areas — minimising distortion.</div>
+            <i>Pulkovo 1942/Stereo 70</i> before computing per-class areas, minimizing distortion.
+          </div>
         </div>
       </div>
 
@@ -164,20 +182,36 @@
         <div class="step-num">06</div>
         <div>
           <h3>Pollution correlation &amp; zonal statistics</h3>
-          <p>A first assessment of possible links between pollution change and land cover change,
-            across three groupings (Stable · Gain · Loss).</p>
+          <p>Assessing the relationship between changes in pollutant concentrations and the three land cover transition
+            groups (Stable, Gain, and Loss) provides a first indication of possible links between air pollution and land
+            cover dynamics. While this analysis does not compute a statistical correlation, the zonal statistics allow
+            the pollutant concentration changes to be compared across the three transition groups.
+
+            The analysis was carried out as follows:
+          </p>
           <ul>
             <li>Resample CAMS change maps to ESRI's 10 m resolution.</li>
             <li>Build a binary change map (zone values) per studied class.</li>
-            <li>Vectorize → dissolve by zone value.</li>
+            <li>Vectorize and dissolve by zone value.</li>
             <li>Compute zonal statistics (mean, min, max) using the pollutant net-change map.</li>
             <li>Produce a bar chart of mean/min/max per zone.</li>
           </ul>
-          <div class="note"><b>Comment · the dissolve bottleneck</b>
-            The dissolve of millions of disjoint polygons was the computational bottleneck: single-threaded
-            QGIS took 24+ hours (some runs cancelled past 30 h at ~50%). ArcGIS completed the same dissolve
-            in ~40 minutes, so the team ran each part in whichever software was more efficient, fixing
-            geometries in QGIS before the final zonal-statistics step.</div>
+          <div class="note"><b>Comment</b>
+            <b>the dissolve bottleneck</b>
+            This stage was by far the most computationally demanding part of the laboratory. The dissolve operation
+            proved to be the computational bottleneck. In QGIS, the process required more than 24 hours on the fastest
+            machine available to the group, while other attempts were cancelled after more than 30 hours with the
+            operation still incomplete. The extremely large number of polygons generated during the polygonization step
+            made the dissolve operation prohibitively slow.<br><br>
+
+            To overcome this limitation, the dissolve step was also tested in ArcGIS. Under the same conditions, ArcGIS
+            completed the operation in approximately 40 minutes, producing equivalent results. Consequently, both QGIS
+            and ArcGIS were used during this stage of the project, selecting the software that offered the most
+            efficient implementation for each task.<br><br>
+
+            Using multiple GIS platforms introduced minor geometry inconsistencies. These were resolved by applying the
+            Fix Geometries tool in QGIS before computing the final zonal statistics
+          </div>
         </div>
       </div>
 
@@ -185,14 +219,21 @@
       <div class="step" id="step-7">
         <div class="step-num">07</div>
         <div>
-          <h3>Bivariate population-exposure map</h3>
-          <p>A bivariate map relates population density and pollution values per administrative region.</p>
+          <h3>Bivariate population exposure map</h3>
+          <p>Bivariate maps provide a visual representation of the spatial relationship between two variables, allowing
+            areas with similar or contrasting patterns to be identified. In this step, a bivariate map was produced to
+            compare population density and pollutant concentrations across Romania, providing an initial visual
+            assessment of their spatial association.
+
+            The bivariate map was generated in the following way:
+          </p>
           <ul>
-            <li>Download WorldPop population counts; reset no-data to 0.</li>
+            <li>Download WorldPop population counts and reset no-data to 0.</li>
             <li>Classify population into 5 classes (0 + 4 quantiles).</li>
             <li>Load FAO GAUL Level 2 for Romania.</li>
             <li>Compute the median population class per region and the max pollution value per region.</li>
-            <li>Bivariate class = <code>(pol_class_max × 10) + pop_class_median</code>; style and visualise.</li>
+            <li>Compute the bivariate class = <code>(pol_class_max × 10) + pop_class_median</code>.</li>
+            <li>Apply the style and visualize the bivariate maps.</li>
           </ul>
         </div>
       </div>
@@ -201,11 +242,13 @@
       <div class="step" id="step-8">
         <div class="step-num">08</div>
         <div>
-          <h3>Population exposure — pie chart</h3>
-          <p>The share of the population exposed to each pollution level, per pollutant.</p>
+          <h3>Population exposure (pie chart)</h3>
+          <p>TThe final step focuses on assessing the proportion of the population exposed to different pollutant
+            concentration ranges for each pollutant. To effectively communicate these results, pie charts were generated
+            to illustrate the percentage of the population falling within each concentration class.</p>
           <ul>
             <li>Dissolve the Step-7 layer by <code>pol_class_max</code>.</li>
-            <li>Sum population per dissolved polygon (per pollutant).</li>
+            <li>Compute the sum of the population in each dissolved polygon (pollution level) for each pollutant.</li>
             <li>Build a pie chart with DataPlotly.</li>
           </ul>
         </div>
@@ -229,4 +272,5 @@
 
   <script src="js/main.js"></script>
 </body>
+
 </html>
