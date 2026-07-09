@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapping Air Quality · Romania · GIS Lab 2025/26</title>
+  <meta name="description" content="Land cover transitions and population exposure to air pollution in Romania, 2021–2023. A GIS laboratory project." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER (duplicated on every page — keep in sync) ===== -->
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">Mapping&nbsp;Air&nbsp;Quality<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">MENU</button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="webgis.html">WebGIS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Geographic Information Systems · A.A. 2025/26</span>
+      <h1>Mapping Air Quality:<br />Land Cover Transitions &amp; Population Exposure</h1>
+      <p class="lede">A geospatial investigation into how land cover changed across Romania
+        between 2021 and 2023, and how those changes relate to air-pollutant trends
+        (NO₂, PM2.5, PM10) and the people exposed to them.</p>
+      <div class="hero-meta">
+        <span>Study area: Romania</span>
+        <span>Period: 2021 – 2023</span>
+        <span>CRS: EPSG:4326 · WGS 84</span>
+        <span>Data: Copernicus / ESRI / WorldPop</span>
+      </div>
+      <p style="margin-top:2rem;">
+        <a class="btn" href="results.html">View results</a>
+        <a class="btn ghost" href="webgis.html">Open the WebGIS</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section class="section" id="overview">
+    <div class="container">
+      <span class="eyebrow">01 · Overview</span>
+      <h2>Why air quality, and why land cover?</h2>
+      <div class="grid-2">
+        <div>
+          <p>Air pollution is the presence of harmful gases and particulates in the atmosphere.
+            It originates from industrial emissions, vehicle exhaust, fossil-fuel combustion and
+            agriculture, as well as natural events such as wildfires and volcanic eruptions.</p>
+          <p>This laboratory studies the relationship between <b>land cover change</b> and
+            <b>atmospheric trends</b> using free and open geospatial data. It focuses on land cover
+            transitions between 2021 and 2023 and their spatial and statistical relationship with
+            fluctuations in key pollutants — then assesses how those combined factors relate to
+            population exposure in Romania.</p>
+        </div>
+        <div class="card">
+          <span class="eyebrow">Relevance</span>
+          <ul class="legend-list" style="font-size:.95rem;line-height:1.6;">
+            <li><span class="swatch" style="background:var(--increase)"></span> 99% of the world lives where pollution exceeds WHO limits.</li>
+            <li><span class="swatch" style="background:var(--increase)"></span> ~7 million premature deaths per year are linked to air pollution.</li>
+            <li><span class="swatch" style="background:var(--decrease)"></span> 96% of the EU urban population saw PM2.5 above WHO guidelines (2022).</li>
+            <li><span class="swatch" style="background:var(--decrease)"></span> Every EU country reported O₃ and NO₂ above WHO guidelines.</li>
+          </ul>
+          <p style="font-size:.78rem;color:var(--muted);margin-top:1rem;font-family:var(--font-mono);">Source: EEA, "Healthy environment, healthy lives," 2019.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STUDY AREA ===== -->
+  <section class="section" id="study-area">
+    <div class="container">
+      <span class="eyebrow">02 · Study area</span>
+      <h2>Romania</h2>
+      <div class="grid-2">
+        <div>
+          <p>Romania is the twelfth-largest country in Europe by area (238,397&nbsp;km²) and the
+            sixth-most populous EU member state, with roughly 19&nbsp;million inhabitants. Its capital
+            and economic centre is Bucharest; other major cities include Cluj-Napoca, Iași,
+            Constanța, Timișoara and Brașov.</p>
+          <p>Despite legal standards being in place, Romania's annual PM2.5 has been consistently
+            <b>three times the WHO guideline</b> in recent years — linked to a rising trend of stroke
+            and ischaemic heart-disease mortality.</p>
+        </div>
+
+        <!-- Optional: drop a locator map / country outline here -->
+        <figure class="figure">
+          <div class="ph-drop">
+            <span class="ph-kind">Image placeholder</span>
+            <span class="ph-file">assets/figures/romania_locator.jpg</span>
+            <span class="ph-note">Locator / study-area map. Replace this block with an
+              <code>&lt;img&gt;</code> when ready.</span>
+          </div>
+          <figcaption><b>Fig. 0</b> — Study area: Romania.</figcaption>
+        </figure>
+      </div>
+
+      <!-- WHO scorecard table -->
+      <div class="table-wrap">
+        <table>
+          <caption>WHO Health &amp; Environment Scorecard · Air Pollution</caption>
+          <thead>
+            <tr><th>Indicator</th><th class="num">2022</th><th class="num">2023</th><th class="num">2025</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PM2.5 annual mean (extent of the problem)</td><td class="num">16 μg/m³ · 3× WHO</td><td class="num">13 μg/m³ · 3× WHO</td><td class="num">13 μg/m³ · 3× WHO</td></tr>
+            <tr><td>Deaths from stroke &amp; ischaemic heart disease linked to air pollution</td><td class="num">15%</td><td class="num">21%</td><td class="num">21%</td></tr>
+            <tr><td>Legal standards for PM2.5 implemented</td><td class="num">Yes</td><td class="num">Yes</td><td class="num">Yes</td></tr>
+            <tr><td>Compliant with WHO Air Quality Guidelines</td><td class="num">No data</td><td class="num">No</td><td class="num">No</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OBJECTIVES ===== -->
+  <section class="section" id="objectives">
+    <div class="container">
+      <span class="eyebrow">03 · Objectives</span>
+      <h2>What this project sets out to do</h2>
+      <div class="stats">
+        <div class="stat"><div class="num">01</div><div class="lbl">Quantify high-resolution land cover transitions (2021→2023) from ESRI 10&nbsp;m data.</div></div>
+        <div class="stat"><div class="num">02</div><div class="lbl">Relate specific land cover transitions to annual trends in NO₂, PM2.5 and PM10.</div></div>
+        <div class="stat"><div class="num">03</div><div class="lbl">Assess dynamic population exposure by overlaying 2023 population with pollution hotspots.</div></div>
+        <div class="stat"><div class="num">04</div><div class="lbl">Communicate findings through an interactive WebGIS and this project website.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DATA & TOOLS at a glance ===== -->
+  <section class="section" id="data">
+    <div class="container">
+      <span class="eyebrow">04 · Data &amp; tools</span>
+      <h2>Sources at a glance</h2>
+      <p class="section-lede">Full processing details are on the
+        <a href="methodology.html">Methodology</a> page.</p>
+      <div class="pill-row">
+        <span class="pill">CAMS European Air Quality Reanalysis</span>
+        <span class="pill">ESRI 10 m Annual Land Cover</span>
+        <span class="pill">WorldPop — Population Counts 2023</span>
+        <span class="pill">FAO GAUL Level 2</span>
+        <span class="pill">QGIS</span>
+        <span class="pill">ArcGIS Pro</span>
+        <span class="pill">GRASS r.series</span>
+        <span class="pill">DataPlotly</span>
+        <span class="pill">OpenLayers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER (duplicated on every page) ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <span>Mapping Air Quality · GIS Laboratory · A.A. 2025/26</span>
+      <span><!-- TODO: team member names --> Group [NAME] · Instructor: Qiongjie&nbsp;Xu</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

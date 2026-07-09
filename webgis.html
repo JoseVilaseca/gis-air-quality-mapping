@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebGIS · Mapping Air Quality</title>
+  <meta name="description" content="Interactive WebGIS of the produced layers: AMAC change maps, land cover, air quality, population and bivariate exposure for Romania." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- OpenLayers (via CDN). Pin a version so it doesn't drift. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.3.1/ol.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">Mapping&nbsp;Air&nbsp;Quality<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">MENU</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="webgis.html" class="active">WebGIS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="map-shell">
+
+    <!-- ===== CONTROL PANEL ===== -->
+    <aside class="map-panel">
+      <h2>Layers</h2>
+
+      <div class="panel-block">
+        <h3>Base map</h3>
+        <div id="basemap-controls"><!-- radio buttons injected by webgis.js --></div>
+      </div>
+
+      <div class="panel-block">
+        <h3>Produced layers</h3>
+        <div id="layer-controls"><!-- checkboxes injected by webgis.js --></div>
+      </div>
+
+      <div class="panel-block">
+        <h3>Legend</h3>
+        <div id="legend"><!-- legend injected by webgis.js for visible layers --></div>
+      </div>
+
+      <div class="panel-block">
+        <h3>About this map</h3>
+        <p style="font-size:.82rem;color:var(--muted);">
+          Two base maps, scale line, full-screen and live coordinate readout. Toggle the produced
+          layers on the left; the legend updates for whatever is visible.
+        </p>
+      </div>
+    </aside>
+
+    <!-- ===== MAP ===== -->
+    <div id="map"></div>
+  </div>
+
+  <!-- OpenLayers library, then our setup -->
+  <script src="https://cdn.jsdelivr.net/npm/ol@10.3.1/dist/ol.js"></script>
+  <script src="js/webgis.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

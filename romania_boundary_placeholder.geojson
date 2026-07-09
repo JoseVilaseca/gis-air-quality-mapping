@@ -1,0 +1,20 @@
+{
+  "type": "FeatureCollection",
+  "note": "PLACEHOLDER — a rough bounding box around Romania. Replace with your real boundary/layer.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Romania (placeholder bbox)" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [20.26, 43.62],
+          [29.72, 43.62],
+          [29.72, 48.27],
+          [20.26, 48.27],
+          [20.26, 43.62]
+        ]]
+      }
+    }
+  ]
+}

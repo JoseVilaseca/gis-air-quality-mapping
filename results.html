@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results · Mapping Air Quality</title>
+  <meta name="description" content="Results of the air-quality and land-cover analysis for Romania, 2021–2023: maps, charts, tables and exposure statistics." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">Mapping&nbsp;Air&nbsp;Quality<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">MENU</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="results.html" class="active">Results</a></li>
+        <li><a href="webgis.html">WebGIS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" style="padding-bottom:2.5rem;">
+    <div class="container">
+      <span class="eyebrow">Results</span>
+      <h1>What the analysis found</h1>
+      <p class="lede">Maps, charts and tables for each step of the pipeline. Figure frames below are
+        placeholders — drop the finished <code>.jpg</code> / <code>.html</code> exports into
+        <code>assets/</code> and swap the frame for the real element.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW TO USE A PLACEHOLDER
+       • Static map/chart image:  replace the .ph-drop <div> with
+           <img src="assets/figures/NAME.jpg" alt="…">
+       • Interactive chart (DataPlotly / Plotly HTML export):
+           <iframe class="chart-frame" src="assets/charts/NAME.html"></iframe>
+       • Table: fill the <td> cells (structure already in place).
+       ============================================================ -->
+
+  <!-- ===== STEP 1 ===== -->
+  <section class="section" id="r-step1">
+    <div class="container">
+      <span class="eyebrow">Step 01 · Monthly maps · December 2023</span>
+      <h2>Monthly aggregated pollutant maps</h2>
+      <div class="grid-2">
+        <figure class="figure">
+          <div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/no2_2023_12.jpg</span><span class="ph-note">NO₂ — December 2023.</span></div>
+          <figcaption><b>Fig. 1a</b> — NO₂ monthly mean, Dec 2023. <span>ROU_CAMS_no2_2023_12.tif</span></figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm2p5_2023_12.jpg</span><span class="ph-note">PM2.5 — December 2023.</span></div>
+          <figcaption><b>Fig. 1b</b> — PM2.5 monthly mean, Dec 2023.</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm10_2023_12.jpg</span><span class="ph-note">PM10 — December 2023.</span></div>
+          <figcaption><b>Fig. 1c</b> — PM10 monthly mean, Dec 2023.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 2 ===== -->
+  <section class="section" id="r-step2">
+    <div class="container">
+      <span class="eyebrow">Step 02 · Annual means · 2023</span>
+      <h2>Yearly aggregated pollutant maps</h2>
+      <p class="section-lede">Annual means across the twelve monthly rasters. The 2021→2023 comparison
+        showed an overall downward trend.</p>
+      <div class="grid-2">
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/average_no2_2023.jpg</span></div><figcaption><b>Fig. 2a</b> — NO₂ annual mean, 2023.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/average_pm2p5_2023.jpg</span></div><figcaption><b>Fig. 2b</b> — PM2.5 annual mean, 2023.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/average_pm10_2023.jpg</span></div><figcaption><b>Fig. 2c</b> — PM10 annual mean, 2023.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 3 ===== -->
+  <section class="section" id="r-step3">
+    <div class="container">
+      <span class="eyebrow">Step 03 · Concentration classes · 2023</span>
+      <h2>Concentration maps per pollutant</h2>
+      <p class="section-lede">Five-level EEA classification. The distribution followed population centres,
+        with lower values over forested zones.</p>
+      <div class="grid-2">
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/no2_concentration_2023.jpg</span></div><figcaption><b>Fig. 3a</b> — NO₂ concentration classes, 2023.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm2p5_concentration_2023.jpg</span></div><figcaption><b>Fig. 3b</b> — PM2.5 concentration classes, 2023.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm10_concentration_2023.jpg</span></div><figcaption><b>Fig. 3c</b> — PM10 concentration classes, 2023.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 4 ===== -->
+  <section class="section" id="r-step4">
+    <div class="container">
+      <span class="eyebrow">Step 04 · Change detection · AMAC 2021→2023</span>
+      <h2>Annual mean aggregation change</h2>
+      <p class="section-lede">Difference between 2023 and 2021 annual means. Red = increase (risk),
+        blue = decrease (improvement), neutral = stable. Overall: broad stability with a slight decrease.</p>
+      <ul class="legend-list" style="margin-bottom:1.5rem;">
+        <li><span class="swatch" style="background:var(--increase)"></span> &gt; 0 μg/m³ — increase</li>
+        <li><span class="swatch" style="background:var(--neutral)"></span> ≈ 0 μg/m³ — stable</li>
+        <li><span class="swatch" style="background:var(--decrease)"></span> &lt; 0 μg/m³ — decrease</li>
+      </ul>
+      <div class="grid-2">
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/no2_amac_2021_2023.jpg</span></div><figcaption><b>Fig. 4a</b> — NO₂ AMAC, 2021→2023. <span>ROU_no2_2021_2023_AMAC_map.tif</span></figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm2p5_amac_2021_2023.jpg</span></div><figcaption><b>Fig. 4b</b> — PM2.5 AMAC, 2021→2023.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm10_amac_2021_2023.jpg</span></div><figcaption><b>Fig. 4c</b> — PM10 AMAC, 2021→2023.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 5 ===== -->
+  <section class="section" id="r-step5">
+    <div class="container">
+      <span class="eyebrow">Step 05 · Land cover change · 2021→2023</span>
+      <h2>Land cover change &amp; statistics</h2>
+      <figure class="figure">
+        <div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/lcc_2021_2023.jpg</span><span class="ph-note">Land cover change map. <b>ROU_LCC_2021_2023.tif</b></span></div>
+        <figcaption><b>Fig. 5</b> — Land cover change, 2021→2023.</figcaption>
+      </figure>
+
+      <p>Most pixels were stable in 2021–2023 (clearest in the mountains). Crops was the class most
+        generally seen as change in the 2023 land cover, throughout the country. The easternmost point
+        experienced significant change, with strong growth of flooded vegetation.</p>
+      <p>Sources of gain and loss were not random: the first source of gain and first source of loss
+        explained more than 50% of the change in most cases. Rangeland was the main source of both loss
+        and gain for Trees (PM10) and Crops (PM2.5); for Built Area (NO₂), crops were the highest source
+        of both loss and gain. Stability was high for every class — lowest for Built Area (95.17%).</p>
+
+      <!-- STATISTICS TABLE — fill the numeric cells from your Step-5 output.
+           Duplicate a <tbody> block per class if you prefer one table per class. -->
+      <div class="table-wrap">
+        <table>
+          <caption>Step 5 · Persistence, sources of gain &amp; loss (per class)</caption>
+          <thead>
+            <tr>
+              <th>Class (pollutant)</th>
+              <th class="num">Stability&nbsp;%</th>
+              <th>Top source of gain</th>
+              <th>Top source of loss</th>
+              <th class="num">Area&nbsp;%&nbsp;(2023)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Built Area (NO₂)</td><td class="num">95.17%</td><td>Crops</td><td>Crops</td><td class="num">[—]</td></tr>
+            <tr><td>Trees (PM10)</td><td class="num">[—]</td><td>Rangeland</td><td>Rangeland</td><td class="num">[—]</td></tr>
+            <tr><td>Crops (PM2.5)</td><td class="num">[—]</td><td>Rangeland</td><td>Rangeland</td><td class="num">[—]</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family:var(--font-mono);font-size:.78rem;color:var(--muted);">Area percentages
+        computed after reprojection to Pulkovo 1942 to minimise distortion.</p>
+    </div>
+  </section>
+
+  <!-- ===== STEP 6 ===== -->
+  <section class="section" id="r-step6">
+    <div class="container">
+      <span class="eyebrow">Step 06 · Zonal statistics · Stable / Gain / Loss</span>
+      <h2>Pollution correlation &amp; zonal statistics</h2>
+      <p class="section-lede">Mean / min / max pollutant net-change per zone. Each chart is provided as an
+        interactive HTML export and a static JPG fallback.</p>
+
+      <!-- Interactive HTML chart placeholder (iframe) + JPG fallback, per pollutant -->
+      <h3>NO₂</h3>
+      <figure class="figure">
+        <div class="ph-drop"><span class="ph-kind">Chart · HTML + JPG</span><span class="ph-file">assets/charts/no2_zonal_stats.html · assets/figures/no2_zonal_stats.jpg</span><span class="ph-note">Bar chart — mean/min/max by zone. Replace with an <code>&lt;iframe class="chart-frame"&gt;</code>.</span></div>
+        <figcaption><b>Fig. 6a</b> — NO₂ zonal statistics by zone.</figcaption>
+      </figure>
+
+      <h3>PM2.5</h3>
+      <figure class="figure">
+        <div class="ph-drop"><span class="ph-kind">Chart · HTML + JPG</span><span class="ph-file">assets/charts/pm2p5_zonal_stats.html · assets/figures/pm2p5_zonal_stats.jpg</span></div>
+        <figcaption><b>Fig. 6b</b> — PM2.5 zonal statistics by zone.</figcaption>
+      </figure>
+
+      <h3>PM10</h3>
+      <figure class="figure">
+        <div class="ph-drop"><span class="ph-kind">Chart · HTML + JPG</span><span class="ph-file">assets/charts/pm10_zonal_stats.html · assets/figures/pm10_zonal_stats.jpg</span></div>
+        <figcaption><b>Fig. 6c</b> — PM10 zonal statistics by zone.</figcaption>
+      </figure>
+
+      <div class="note">
+        <b>Analysis · PM10</b>
+        Results look counter-intuitive: the largest decrease in PM10 happened in areas of forest loss,
+        and the smallest increase in areas of stable forest cover. No correlation was seen between PM10
+        and forest gain. <!-- TODO: add NO₂ and PM2.5 analysis when finalised. -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 7 ===== -->
+  <section class="section" id="r-step7">
+    <div class="container">
+      <span class="eyebrow">Step 07 · Bivariate exposure</span>
+      <h2>Population-exposure bivariate maps</h2>
+      <p class="section-lede">Population class (median) × pollution class (max) per administrative region.
+        Pollution is low (class 1) in mountains and eastern forests; the rest of the country sits at
+        class 2 regardless of population class.</p>
+      <div class="grid-2">
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/no2_bivariate_2023.jpg</span></div><figcaption><b>Fig. 7a</b> — NO₂ bivariate exposure.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm2p5_bivariate_2023.jpg</span></div><figcaption><b>Fig. 7b</b> — PM2.5 bivariate exposure.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Map · JPG</span><span class="ph-file">assets/figures/pm10_bivariate_2023.jpg</span></div><figcaption><b>Fig. 7c</b> — PM10 bivariate exposure.</figcaption></figure>
+        <figure class="figure"><div class="ph-drop"><span class="ph-kind">Legend · JPG/SVG</span><span class="ph-file">assets/figures/bivariate_legend.jpg</span><span class="ph-note">3×3 (or 5×5) bivariate legend key.</span></div><figcaption><b>Fig. 7d</b> — Bivariate legend.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 8 ===== -->
+  <section class="section" id="r-step8">
+    <div class="container">
+      <span class="eyebrow">Step 08 · Population exposure</span>
+      <h2>Share of population by pollution level</h2>
+      <div class="grid-2">
+        <div>
+          <figure class="figure">
+            <div class="ph-drop"><span class="ph-kind">Pie chart · HTML + JPG</span><span class="ph-file">assets/charts/pm10_exposure_pie.html · assets/figures/pm10_exposure_pie.jpg</span><span class="ph-note">DataPlotly pie export.</span></div>
+            <figcaption><b>Fig. 8</b> — PM10 population exposure by class.</figcaption>
+          </figure>
+        </div>
+        <div>
+          <div class="stats" style="grid-template-columns:1fr 1fr;">
+            <div class="stat"><div class="num">78.7%</div><div class="lbl">of the population exposed to class 2 pollution (PM10).</div></div>
+            <div class="stat"><div class="num">21.3%</div><div class="lbl">living in class 1 pollution areas (PM10).</div></div>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:.78rem;color:var(--muted);margin-top:1rem;">
+            <!-- TODO: add NO₂ and PM2.5 exposure charts/percentages when finalised. -->
+            NO₂ and PM2.5 charts to be added.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p><a class="btn" href="webgis.html">Explore the layers in the WebGIS →</a></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Mapping Air Quality · GIS Laboratory · A.A. 2025/26</span>
+      <span>Group [NAME] · Instructor: Qiongjie&nbsp;Xu</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
