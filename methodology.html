@@ -31,8 +31,6 @@
     <div class="container">
       <span class="eyebrow">Methodology</span>
       <h1>Data &amp; processing pipeline</h1>
-      <p class="lede">Eight steps, from raw NetCDF reanalysis fields to a bivariate population-exposure
-        map. Each step lists the workflow and the practical notes recorded along the way.</p>
     </div>
   </section>
 
@@ -44,8 +42,7 @@
       <div class="grid-2">
         <div class="card">
           <h3>CAMS European Air Quality Reanalysis</h3>
-          <p>Retrospective air-quality modelling combining 11 regional chemistry-transport models
-            (the ENSEMBLE median). Hourly pollutant fields delivered as NetCDF.</p>
+          <p>Retrospective air-quality modelling. Hourly pollutant fields delivered as NetCDF.</p>
           <div class="pill-row">
             <span class="pill">NO₂</span><span class="pill">PM2.5</span><span class="pill">PM10</span>
             <span class="pill">2021 &amp; 2023</span><span class="pill">μg/m³</span>
@@ -53,7 +50,7 @@
         </div>
         <div class="card">
           <h3>ESRI 10 m Annual Land Cover</h3>
-          <p>High-resolution annual land cover from the ArcGIS Living Atlas, used to detect
+          <p>High-resolution annual land cover, used to detect
             transitions between 2021 and 2023.</p>
           <div class="pill-row"><span class="pill">10 m</span><span class="pill">2021 &amp; 2023</span></div>
         </div>
@@ -70,12 +67,6 @@
         </div>
       </div>
 
-      <div class="note" style="margin-top:2rem;">
-        <b>Note · NetCDF</b>
-        A file format for multi-dimensional scientific data (time, latitude, longitude, height).
-        CAMS fields are self-describing — variable, dimensions and metadata such as units and source
-        travel with the data — which makes them ideal for analysis in QGIS, Python (xarray) and Panoply.
-      </div>
     </div>
   </section>
 
@@ -89,8 +80,8 @@
       <div class="step" id="step-1">
         <div class="step-num">01</div>
         <div>
-          <h3>Monthly aggregated maps — December 2023</h3>
-          <p>Monthly mean aggregation simplifies analysis of the pollution data. For December 2023:</p>
+          <h3>Monthly aggregated maps for December 2023</h3>
+          <p>Monthly mean aggregation simplifies analysis of the pollution data. For December 2023, the procedure consisted in:</p>
           <ol>
             <li>Download the CAMS European Air Quality Reanalysis (2023 hourly mesh dataset).</li>
             <li>Assign projection <b>EPSG:4326 · WGS 84</b> to avoid compatibility issues.</li>
@@ -110,23 +101,20 @@
       <div class="step" id="step-2">
         <div class="step-num">02</div>
         <div>
-          <h3>Yearly aggregated maps — 2021 &amp; 2023</h3>
+          <h3>Yearly aggregated maps for 2021 &amp; 2023</h3>
           <p>A yearly mean across the twelve monthly rasters produces the annual layers, computed with
             <b>r.series</b> (aggregation = mean).</p>
-          <div class="note"><b>Comment</b> The comparison showed a downward trend from 2021 to 2023.</div>
-        </div>
+          </div>
       </div>
 
       <!-- STEP 3 -->
       <div class="step" id="step-3">
         <div class="step-num">03</div>
         <div>
-          <h3>Concentration maps per pollutant — 2023</h3>
+          <h3>Concentration maps per pollutant for 2023</h3>
           <p>The EU sets annual-mean limits per pollutant, and concentration is reported on five levels.
             Binning follows the EEA ranges via
-            <i>Processing Toolbox → Raster analysis → Reclassify by table</i>.</p>
-          <div class="note"><b>Comment</b> The colour-coded result tracked population centres, with
-            lower values over forested zones.</div>
+            <i>Processing Toolbox → Raster analysis → Reclassify by table</i>.</p>  
         </div>
       </div>
 
