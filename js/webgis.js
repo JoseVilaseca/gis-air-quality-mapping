@@ -28,6 +28,7 @@ const VIEW = { lon: 25.0, lat: 45.9, zoom: 6 };
 /* Produced layers. Order here = order in the panel (top = first).
    `visible: false` keeps the map clean until a layer is configured.
    Each `legend` entry becomes a swatch + label in the Legend panel. */
+
 const PRODUCED_LAYERS = [
 
   // --- STEP 2 . Average 2023 Pollutan ---
@@ -37,7 +38,7 @@ const PRODUCED_LAYERS = [
   },
     {
     id: 'avg_2023_pm25', title: 'PM2.5 Average 2023',
-    type: 'wms', wmsLayer: '', visible: false
+    type: 'wms', wmsLayer: 'ROMANIA_average_pm2p_2023', visible: false
   },
   {
     id: 'avg_2023_pm10', title: 'PM10 Average 2023',
@@ -50,7 +51,7 @@ const PRODUCED_LAYERS = [
   },
     {
     id: 'conc_2023_pm25', title: 'PM2.5 Concentration 2023',
-    type: 'wms', wmsLayer: '', visible: false
+    type: 'wms', wmsLayer: 'ROMANIA_pm2p5_concentration_map_2023', visible: false
   },
   {
     id: 'conc_2023_pm10', title: 'PM10 Concentration 2023',
@@ -63,7 +64,7 @@ const PRODUCED_LAYERS = [
   },
   {
     id: 'amac_pm25', title: 'PM2.5 change 2021→2023 (AMAC)',
-    type: 'wms', wmsLayer: '', visible: false
+    type: 'wms', wmsLayer: 'ROMANIA_pm2p5 _ 2021_2023_AMAC_map', visible: false
   },
   {
     id: 'amac_pm10', title: 'PM10 change 2021→2023 (AMAC)',
@@ -95,13 +96,13 @@ const PRODUCED_LAYERS = [
 
   // --- DEMO local layer so the map isn't empty before GeoServer is set.
   //     Delete once your real layers are live. ---
-  {
-    id: 'boundary', title: 'Romania boundary (placeholder)',
-    type: 'geojson', url: 'assets/data/romania_boundary_placeholder.geojson',
-    visible: true,
-    style: { stroke: '#1f6e7c', width: 1.5, fill: 'rgba(31,110,124,0.06)' },
-    legend: [{ color: '#1f6e7c', label: 'Study-area boundary (placeholder)' }]
-  }
+  // {
+  //   id: 'boundary', title: 'Romania boundary (placeholder)',
+  //   type: 'geojson', url: 'assets/data/romania_boundary_placeholder.geojson',
+  //   visible: true,
+  //   style: { stroke: '#1f6e7c', width: 1.5, fill: 'rgba(31,110,124,0.06)' },
+  //   legend: [{ color: '#1f6e7c', label: 'Study-area boundary (placeholder)' }]
+  // }
 ];
 
 /* ---- BASE MAPS ------------------------------------------------- */
