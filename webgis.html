@@ -14,6 +14,25 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.3.1/ol.css" />
 
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Collapsible per-pollutant layer groups (WebGIS panel only) -->
+  <style>
+    .layer-group { border-bottom: 1px solid var(--line); }
+    .layer-group:last-child { border-bottom: 0; }
+    .layer-group > summary {
+      font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink);
+      padding: .6rem 0; cursor: pointer; list-style: none;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .layer-group > summary:hover { color: var(--accent); }
+    .layer-group > summary::-webkit-details-marker { display: none; } /* Safari */
+    .layer-group > summary::after { content: '+'; color: var(--accent); font-size: 1rem; line-height: 1; }
+    .layer-group[open] > summary::after { content: '\2013'; }          /* en dash */
+    .layer-group .layer-row { padding-left: .1rem; margin-bottom: .5rem; }
+    .layer-group .layer-row:last-child { margin-bottom: .8rem; }
+    .group-count { color: var(--muted); font-size: .68rem; letter-spacing: 0; }
+  </style>
 </head>
 <body>
 

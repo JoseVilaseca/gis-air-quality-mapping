@@ -2,112 +2,81 @@
    WebGIS — OpenLayers setup
    -------------------------------------------------------------
    Everything you need to change lives in the CONFIG block below.
-   Add a layer = add one object to PRODUCED_LAYERS. The panel and
-   the legend build themselves from that array.
+   Add a layer = add one object to PRODUCED_LAYERS and give it a
+   `group` (see LAYER_GROUPS). The panel builds one collapsible
+   section per group so the list never feels overwhelming.
 
    Two ways to serve the produced layers:
-   (A) GeoServer WMS  — recommended ("online solution highly
-       rewarded"). Set GEOSERVER once, then give each layer a
+   (A) GeoServer WMS  — set GEOSERVER once, then give each layer a
        `wmsLayer` name.  type: 'wms'
    (B) Local vector   — a GeoJSON file in assets/data/.  type: 'geojson'
-       (Raster GeoTIFFs should be published via GeoServer or
-        pre-rendered to PNG/GeoJSON — the browser can't read .tif
-        directly with plain OpenLayers.)
    ============================================================= */
 
 /* ---- CONFIG ---------------------------------------------------- */
 
 const GEOSERVER = {
-  wmsUrl:    'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_10/wms', // TODO: set WORKSPACE
-  workspace: 'gisgeoserver_10'                                                    // TODO: set WORKSPACE
+  wmsUrl:    'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_10/wms',
+  workspace: 'gisgeoserver_10'
 };
 
 // Map starts centred on Romania.
-const VIEW = { lon: 25.0, lat: 45.9, zoom: 6 };
+const VIEW = { lon: 25.0, lat: 45.9, zoom: 7 };
 
-/* Produced layers. Order here = order in the panel (top = first).
-   `visible: false` keeps the map clean until a layer is configured.
-   Each `legend` entry becomes a swatch + label in the Legend panel. */
+/* Panel groups, in display order. Each layer's `group` must match one
+   of these strings (anything that doesn't match lands in "Other"). */
+const LAYER_GROUPS = ['NO₂', 'PM2.5', 'PM10', 'Land cover'];
 
+/* Produced layers. `group` decides which collapsible section a layer
+   appears under — array order here is preserved *within* each group,
+   so you can keep them ordered by processing step as below. */
 const PRODUCED_LAYERS = [
 
-  // --- STEP 2 . Average 2023 Pollutan ---
-  {
-    id: 'avg_2023_no2', title: 'NO₂ Average 2023',
-    type: 'wms', wmsLayer: 'ROMANIA_average_NO2_2023', visible: false,
-  },
-    {
-    id: 'avg_2023_pm25', title: 'PM2.5 Average 2023',
-    type: 'wms', wmsLayer: 'ROMANIA_average_pm2p_2023', visible: false
-  },
-  {
-    id: 'avg_2023_pm10', title: 'PM10 Average 2023',
-    type: 'wms', wmsLayer: 'ROMANIA_average_pm10_2023', visible: false
-  },
-  // --- STEP 3 . Pollutant Concentration Maps 2023  ---
-  {
-    id: 'conc_2023_no2', title: 'NO₂ Concentration 2023',
-    type: 'wms', wmsLayer: 'ROMANIA_no2_concentration_map_2023', visible: false,
-  },
-    {
-    id: 'conc_2023_pm25', title: 'PM2.5 Concentration 2023',
-    type: 'wms', wmsLayer: 'ROMANIA_pm2p5_concentration_map_2023', visible: false
-  },
-  {
-    id: 'conc_2023_pm10', title: 'PM10 Concentration 2023',
-    type: 'wms', wmsLayer: 'ROMANIA_pm10_concentration_map_2023', visible: false
-  },
+  // --- STEP 2 · Average 2023 ---
+  { id: 'avg_2023_no2',  group: 'NO₂',   title: 'NO₂ Average 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_average_NO2_2023', visible: true },
+  { id: 'avg_2023_pm25', group: 'PM2.5', title: 'PM2.5 Average 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_average_pm2p_2023', visible: false },
+  { id: 'avg_2023_pm10', group: 'PM10',  title: 'PM10 Average 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_average_pm10_2023', visible: false },
+
+  // --- STEP 3 · Concentration maps 2023 ---
+  { id: 'conc_2023_no2',  group: 'NO₂',   title: 'NO₂ Concentration 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_no2_concentration_map_2023', visible: false },
+  { id: 'conc_2023_pm25', group: 'PM2.5', title: 'PM2.5 Concentration 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_pm2p5_concentration_map_2023', visible: false },
+  { id: 'conc_2023_pm10', group: 'PM10',  title: 'PM10 Concentration 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_pm10_concentration_map_2023', visible: false },
+
   // --- STEP 4 · AMAC change maps (minimum required) ---
-  {
-    id: 'amac_no2', title: 'NO₂ change 2021→2023 (AMAC)',
-    type: 'wms', wmsLayer: 'ROMANIA_no2_2021_2023_AMAC_map ', visible: false
-  },
-  {
-    id: 'amac_pm25', title: 'PM2.5 change 2021→2023 (AMAC)',
-    type: 'wms', wmsLayer: 'ROMANIA_pm2p5 _ 2021_2023_AMAC_map', visible: false
-  },
-  {
-    id: 'amac_pm10', title: 'PM10 change 2021→2023 (AMAC)',
-    type: 'wms', wmsLayer: 'ROMANIA_pm10_2021_2023_AMAC_map ', visible: false
-  },
+  { id: 'amac_no2',  group: 'NO₂',   title: 'NO₂ change 2021→2023 (AMAC)',
+    type: 'wms', wmsLayer: 'ROMANIA_no2_2021_2023_AMAC_map', visible: false },
+  { id: 'amac_pm25', group: 'PM2.5', title: 'PM2.5 change 2021→2023 (AMAC)',
+    type: 'wms', wmsLayer: 'ROMANIA_pm2p5 _ 2021_2023_AMAC_map', visible: false }, 
+  { id: 'amac_pm10', group: 'PM10',  title: 'PM10 change 2021→2023 (AMAC)',
+    type: 'wms', wmsLayer: 'ROMANIA_pm10_2021_2023_AMAC_map', visible: false },
 
   // --- STEP 5 · Land cover change ---
-  {
-    id: 'lcc', title: 'Land cover change 2021→2023',
-    type: 'wms', wmsLayer: 'ROMANIA_LCC_2021_2023_resampled1km', visible: false,
-  },
+  { id: 'lcc', group: 'Land cover', title: 'Land cover change 2021→2023',
+    type: 'wms', wmsLayer: 'ROMANIA_LCC_2021_2023_resampled1km', visible: false },
 
   // --- STEP 7 · Bivariate exposure ---
-  {
-    id: 'bivariate_no2', title: 'NO₂ bivariate exposure',
-    type: 'wms', wmsLayer: 'ROMANIA_no2_2023_bivariate', visible: false
-  },
-  {
-    id: 'bivariate_pm25', title: 'PM2.5 bivariate exposure',
-    type: 'wms', wmsLayer: '', visible: false
-  },
-  {
-    id: 'bivariate_pm10', title: 'PM10 bivariate exposure',
-    type: 'wms', wmsLayer: 'ROMANIA_pm10_2023_bivariate', visible: false
-  },
+  { id: 'bivariate_no2',  group: 'NO₂',   title: 'NO₂ bivariate exposure',
+    type: 'wms', wmsLayer: 'ROMANIA_no2_2023_bivariate', visible: false },
+  { id: 'bivariate_pm25', group: 'PM2.5', title: 'PM2.5 bivariate exposure',
+    type: 'wms', wmsLayer: 'ROMANIA_pm2p5_2023_bivariate', visible: false },
+  { id: 'bivariate_pm10', group: 'PM10',  title: 'PM10 bivariate exposure',
+    type: 'wms', wmsLayer: 'ROMANIA_pm10_2023_bivariate', visible: false },
 
-  // --- Optional context layers (uncomment / add as needed) ---
-  // { id: 'population', title: 'Population 2023', type: 'wms', wmsLayer: 'ROU_population_2023', visible: false, legend: [...] },
-
-  // --- DEMO local layer so the map isn't empty before GeoServer is set.
-  //     Delete once your real layers are live. ---
-  // {
-  //   id: 'boundary', title: 'Romania boundary (placeholder)',
-  //   type: 'geojson', url: 'assets/data/romania_boundary_placeholder.geojson',
-  //   visible: true,
-  //   style: { stroke: '#1f6e7c', width: 1.5, fill: 'rgba(31,110,124,0.06)' },
-  //   legend: [{ color: '#1f6e7c', label: 'Study-area boundary (placeholder)' }]
-  // }
+  // --- STEP 8 · Population exposure (charts) ---
+  { id: 'exppol_no2',  group: 'NO₂',   title: 'NO₂ exposure (% Population - Level of Pollution)',
+    type: 'wms', wmsLayer: 'ROMANIA_no2_2023_CHART', visible: false },   // VERIFY case
+  { id: 'exppol_pm25', group: 'PM2.5', title: 'PM2.5 exposure (% Population - Level of Pollution)',
+    type: 'wms', wmsLayer: 'ROMANIA_pm2p5_2023_chart', visible: false },
+  { id: 'exppol_pm10', group: 'PM10',  title: 'PM10 exposure (% Population - Level of Pollution)',
+    type: 'wms', wmsLayer: 'Romania_pm10_2023_chart', visible: false }   // VERIFY case
 ];
 
 /* ---- BASE MAPS ------------------------------------------------- */
-/* OSM + one other, as required. CartoDB Positron is a clean,
-   minimalist second base map — check attribution before publishing. */
 const baseMaps = {
   osm: new ol.layer.Tile({
     source: new ol.source.OSM(),
@@ -131,11 +100,11 @@ const overlayLayers = PRODUCED_LAYERS.map(function (cfg) {
       visible: cfg.visible,
       source: new ol.source.ImageWMS({
         url: GEOSERVER.wmsUrl,
-        params: { 'LAYERS': GEOSERVER.workspace + ':' + cfg.wmsLayer},
+        // .trim() guards against stray spaces in a layer name.
+        params: { 'LAYERS': GEOSERVER.workspace + ':' + cfg.wmsLayer.trim() },
         serverType: 'geoserver',
         crossOrigin: 'anonymous'
       })
-
     });
   } else if (cfg.type === 'geojson') {
     const s = cfg.style || {};
@@ -201,34 +170,62 @@ const map = new ol.Map({
   });
 })();
 
-/* ---- PANEL: produced-layer toggles ---------------------------- */
+/* ---- PANEL: produced-layer toggles (grouped) ------------------ */
+/* One collapsible <details> section per group. The first group starts
+   open; the rest start collapsed so the panel stays tidy. */
 (function buildLayerControls() {
   const box = document.getElementById('layer-controls');
-  PRODUCED_LAYERS.forEach(function (cfg, i) {
-    const row = document.createElement('div');
-    row.className = 'layer-row';
-    row.innerHTML =
-      '<input type="checkbox" id="ly-' + cfg.id + '"' + (cfg.visible ? ' checked' : '') + '>' +
-      '<label for="ly-' + cfg.id + '">' + cfg.title + '</label>';
-    box.appendChild(row);
-    row.querySelector('input').addEventListener('change', function (e) {
-      overlayLayers[i].setVisible(e.target.checked);
-      renderLegend();
+
+  // Helper: build one collapsible group from a list of {cfg, i}.
+  function makeGroup(name, members, open) {
+    const details = document.createElement('details');
+    details.className = 'layer-group';
+    details.open = open;
+
+    const summary = document.createElement('summary');
+    summary.innerHTML = name + ' <span class="group-count">' + members.length + '</span>';
+    details.appendChild(summary);
+
+    members.forEach(function (m) {
+      const row = document.createElement('div');
+      row.className = 'layer-row';
+      row.innerHTML =
+        '<input type="checkbox" id="ly-' + m.cfg.id + '"' + (m.cfg.visible ? ' checked' : '') + '>' +
+        '<label for="ly-' + m.cfg.id + '">' + m.cfg.title + '</label>';
+      details.appendChild(row);
+      row.querySelector('input').addEventListener('change', function (e) {
+        overlayLayers[m.i].setVisible(e.target.checked);
+        renderLegend();
+      });
     });
+
+    box.appendChild(details);
+  }
+
+  const placed = new Set();
+
+  // Known groups, in LAYER_GROUPS order.
+  LAYER_GROUPS.forEach(function (groupName, gi) {
+    const members = [];
+    PRODUCED_LAYERS.forEach(function (cfg, i) {
+      if (cfg.group === groupName) { members.push({ cfg: cfg, i: i }); placed.add(i); }
+    });
+    if (members.length) makeGroup(groupName, members, gi === 0);
   });
+
+  // Safety net: any layer with a missing/unknown group still shows up.
+  const others = [];
+  PRODUCED_LAYERS.forEach(function (cfg, i) {
+    if (!placed.has(i)) others.push({ cfg: cfg, i: i });
+  });
+  if (others.length) makeGroup('Other', others, false);
 })();
 
 /* ---- LEGEND --------------------------------------------------- */
 /* For WMS layers we ask GeoServer to draw the legend from the
-   layer's own SLD (WMS "GetLegendGraphic"). OpenLayers builds that
-   URL for us via source.getLegendUrl(). This means the legend always
-   matches the server-side style — no hardcoded swatches to maintain.
-   For the local GeoJSON layer (no server), we fall back to the manual
-   `legend` array in its config. */
+   layer's own SLD (WMS "GetLegendGraphic") via source.getLegendUrl().
+   For local GeoJSON layers we fall back to the manual `legend` array. */
 
-// GeoServer vendor options that style the generated legend PNG to
-// match the site. Colours are 0xRRGGBB. See:
-// docs.geoserver.org/latest/en/user/services/wms/get_legend_graphic
 const LEGEND_OPTIONS = 'forceLabels:on;fontName:Arial;fontColor:0x16232b;fontAntiAliasing:true';
 
 function manualSwatches(cfg) {
@@ -260,7 +257,6 @@ function renderLegend() {
 
     const source = layer.getSource();
     if (cfg.type === 'wms' && typeof source.getLegendUrl === 'function') {
-      // Fetch the legend image straight from GeoServer's GetLegendGraphic.
       const url = source.getLegendUrl(resolution, {
         LEGEND_OPTIONS: LEGEND_OPTIONS,
         TRANSPARENT: true
@@ -269,14 +265,12 @@ function renderLegend() {
       img.src = url;
       img.alt = cfg.title + ' legend';
       img.style.cssText = 'max-width:100%;display:block;';
-      // If GeoServer isn't reachable yet, fall back to manual swatches (if any).
       img.onerror = function () {
         if (cfg.legend) img.replaceWith(manualSwatches(cfg));
         else img.replaceWith(document.createTextNode('Legend unavailable — is GeoServer configured?'));
       };
       box.appendChild(img);
     } else {
-      // Local GeoJSON (or any layer without a WMS source): manual swatches.
       box.appendChild(manualSwatches(cfg));
     }
   });
@@ -286,3 +280,7 @@ function renderLegend() {
   }
 }
 renderLegend();
+
+/* Legends can be scale-dependent. Uncomment to refresh on zoom:
+// map.getView().on('change:resolution', renderLegend);
+*/
