@@ -17,10 +17,9 @@
 
 /* ---- CONFIG ---------------------------------------------------- */
 
-// GeoServer base (Polimi). Fill in your group's workspace.
 const GEOSERVER = {
-  wmsUrl:    'https://www.gis-geoserver.polimi.it/geoserver/WORKSPACE/wms', // TODO: set WORKSPACE
-  workspace: 'WORKSPACE'                                                    // TODO: set WORKSPACE
+  wmsUrl:    'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_10/wms', // TODO: set WORKSPACE
+  workspace: 'gisgeoserver_10'                                                    // TODO: set WORKSPACE
 };
 
 // Map starts centred on Romania.
@@ -31,47 +30,64 @@ const VIEW = { lon: 25.0, lat: 45.9, zoom: 6 };
    Each `legend` entry becomes a swatch + label in the Legend panel. */
 const PRODUCED_LAYERS = [
 
+  // --- STEP 2 . Average 2023 Pollutan ---
+  {
+    id: 'avg_2023_no2', title: 'NO₂ Average 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_average_NO2_2023', visible: false,
+  },
+    {
+    id: 'avg_2023_pm25', title: 'PM2.5 Average 2023',
+    type: 'wms', wmsLayer: '', visible: false
+  },
+  {
+    id: 'avg_2023_pm10', title: 'PM10 Average 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_average_pm10_2023', visible: false
+  },
+  // --- STEP 3 . Pollutant Concentration Maps 2023  ---
+  {
+    id: 'conc_2023_no2', title: 'NO₂ Concentration 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_no2_concentration_map_2023', visible: false,
+  },
+    {
+    id: 'conc_2023_pm25', title: 'PM2.5 Concentration 2023',
+    type: 'wms', wmsLayer: '', visible: false
+  },
+  {
+    id: 'conc_2023_pm10', title: 'PM10 Concentration 2023',
+    type: 'wms', wmsLayer: 'ROMANIA_pm10_concentration_map_2023', visible: false
+  },
   // --- STEP 4 · AMAC change maps (minimum required) ---
   {
     id: 'amac_no2', title: 'NO₂ change 2021→2023 (AMAC)',
-    type: 'wms', wmsLayer: 'ROU_no2_2021_2023_AMAC_map', visible: false,
-    legend: [
-      { color: '#c0554b', label: '> 0 μg/m³ · increase' },
-      { color: '#c9cfd2', label: '≈ 0 μg/m³ · stable' },
-      { color: '#3e7ca6', label: '< 0 μg/m³ · decrease' }
-    ]
+    type: 'wms', wmsLayer: 'ROMANIA_no2_2021_2023_AMAC_map ', visible: false
   },
   {
     id: 'amac_pm25', title: 'PM2.5 change 2021→2023 (AMAC)',
-    type: 'wms', wmsLayer: 'ROU_pm2p5_2021_2023_AMAC_map', visible: false,
-    legend: [
-      { color: '#c0554b', label: '> 0 μg/m³ · increase' },
-      { color: '#c9cfd2', label: '≈ 0 μg/m³ · stable' },
-      { color: '#3e7ca6', label: '< 0 μg/m³ · decrease' }
-    ]
+    type: 'wms', wmsLayer: '', visible: false
   },
   {
     id: 'amac_pm10', title: 'PM10 change 2021→2023 (AMAC)',
-    type: 'wms', wmsLayer: 'ROU_pm10_2021_2023_AMAC_map', visible: false,
-    legend: [
-      { color: '#c0554b', label: '> 0 μg/m³ · increase' },
-      { color: '#c9cfd2', label: '≈ 0 μg/m³ · stable' },
-      { color: '#3e7ca6', label: '< 0 μg/m³ · decrease' }
-    ]
+    type: 'wms', wmsLayer: 'ROMANIA_pm10_2021_2023_AMAC_map ', visible: false
   },
 
   // --- STEP 5 · Land cover change ---
   {
     id: 'lcc', title: 'Land cover change 2021→2023',
-    type: 'wms', wmsLayer: 'ROU_LCC_2021_2023', visible: false,
-    legend: [{ color: '#c9cfd2', label: 'See per-class categories' }]
+    type: 'wms', wmsLayer: 'ROMANIA_LCC_2021_2023_resampled1km', visible: false,
   },
 
-  // --- STEP 7 · Bivariate exposure (example: PM10) ---
+  // --- STEP 7 · Bivariate exposure ---
+  {
+    id: 'bivariate_no2', title: 'NO₂ bivariate exposure',
+    type: 'wms', wmsLayer: 'ROMANIA_no2_2023_bivariate', visible: false
+  },
+  {
+    id: 'bivariate_pm25', title: 'PM2.5 bivariate exposure',
+    type: 'wms', wmsLayer: '', visible: false
+  },
   {
     id: 'bivariate_pm10', title: 'PM10 bivariate exposure',
-    type: 'wms', wmsLayer: 'ROU_pm10_2023_bivariate', visible: false,
-    legend: [{ color: '#c9cfd2', label: 'Population × pollution (see Results Fig. 7d)' }]
+    type: 'wms', wmsLayer: 'ROMANIA_pm10_2023_bivariate', visible: false
   },
 
   // --- Optional context layers (uncomment / add as needed) ---
@@ -94,14 +110,14 @@ const PRODUCED_LAYERS = [
 const baseMaps = {
   osm: new ol.layer.Tile({
     source: new ol.source.OSM(),
-    visible: true
+    visible: false
   }),
   positron: new ol.layer.Tile({
     source: new ol.source.XYZ({
       url: 'https://{a-d}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
       attributions: '© OpenStreetMap contributors, © CARTO'
     }),
-    visible: false
+    visible: true
   })
 };
 
@@ -110,14 +126,15 @@ const overlayLayers = PRODUCED_LAYERS.map(function (cfg) {
   let layer;
 
   if (cfg.type === 'wms') {
-    layer = new ol.layer.Tile({
+    layer = new ol.layer.Image({
       visible: cfg.visible,
-      source: new ol.source.TileWMS({
+      source: new ol.source.ImageWMS({
         url: GEOSERVER.wmsUrl,
-        params: { LAYERS: GEOSERVER.workspace + ':' + cfg.wmsLayer, TILED: true },
+        params: { 'LAYERS': GEOSERVER.workspace + ':' + cfg.wmsLayer},
         serverType: 'geoserver',
         crossOrigin: 'anonymous'
       })
+
     });
   } else if (cfg.type === 'geojson') {
     const s = cfg.style || {};
@@ -166,8 +183,8 @@ const map = new ol.Map({
 (function buildBaseControls() {
   const box = document.getElementById('basemap-controls');
   const options = [
-    { key: 'osm',      label: 'OpenStreetMap', checked: true },
-    { key: 'positron', label: 'CARTO Light',   checked: false }
+    { key: 'osm',      label: 'OpenStreetMap', checked: false },
+    { key: 'positron', label: 'CARTO Light',   checked: true }
   ];
   options.forEach(function (o) {
     const row = document.createElement('div');
@@ -200,29 +217,67 @@ const map = new ol.Map({
   });
 })();
 
-/* ---- LEGEND (rebuilds for whatever is visible) ---------------- */
+/* ---- LEGEND --------------------------------------------------- */
+/* For WMS layers we ask GeoServer to draw the legend from the
+   layer's own SLD (WMS "GetLegendGraphic"). OpenLayers builds that
+   URL for us via source.getLegendUrl(). This means the legend always
+   matches the server-side style — no hardcoded swatches to maintain.
+   For the local GeoJSON layer (no server), we fall back to the manual
+   `legend` array in its config. */
+
+// GeoServer vendor options that style the generated legend PNG to
+// match the site. Colours are 0xRRGGBB. See:
+// docs.geoserver.org/latest/en/user/services/wms/get_legend_graphic
+const LEGEND_OPTIONS = 'forceLabels:on;fontName:Arial;fontColor:0x16232b;fontAntiAliasing:true';
+
+function manualSwatches(cfg) {
+  const ul = document.createElement('ul');
+  ul.className = 'legend-list';
+  (cfg.legend || []).forEach(function (item) {
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="swatch" style="background:' + item.color + '"></span>' + item.label;
+    ul.appendChild(li);
+  });
+  return ul;
+}
+
 function renderLegend() {
   const box = document.getElementById('legend');
   box.innerHTML = '';
+  const resolution = map.getView().getResolution();
   let any = false;
 
   PRODUCED_LAYERS.forEach(function (cfg, i) {
-    if (!overlayLayers[i].getVisible()) return;
+    const layer = overlayLayers[i];
+    if (!layer.getVisible()) return;
     any = true;
 
     const title = document.createElement('p');
-    title.style.cssText = 'font-family:var(--font-mono);font-size:.72rem;margin:.2rem 0 .4rem;color:var(--ink);';
+    title.style.cssText = 'font-family:var(--font-mono);font-size:.72rem;margin:.6rem 0 .4rem;color:var(--ink);';
     title.textContent = cfg.title;
     box.appendChild(title);
 
-    const ul = document.createElement('ul');
-    ul.className = 'legend-list';
-    (cfg.legend || []).forEach(function (item) {
-      const li = document.createElement('li');
-      li.innerHTML = '<span class="swatch" style="background:' + item.color + '"></span>' + item.label;
-      ul.appendChild(li);
-    });
-    box.appendChild(ul);
+    const source = layer.getSource();
+    if (cfg.type === 'wms' && typeof source.getLegendUrl === 'function') {
+      // Fetch the legend image straight from GeoServer's GetLegendGraphic.
+      const url = source.getLegendUrl(resolution, {
+        LEGEND_OPTIONS: LEGEND_OPTIONS,
+        TRANSPARENT: true
+      });
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = cfg.title + ' legend';
+      img.style.cssText = 'max-width:100%;display:block;';
+      // If GeoServer isn't reachable yet, fall back to manual swatches (if any).
+      img.onerror = function () {
+        if (cfg.legend) img.replaceWith(manualSwatches(cfg));
+        else img.replaceWith(document.createTextNode('Legend unavailable — is GeoServer configured?'));
+      };
+      box.appendChild(img);
+    } else {
+      // Local GeoJSON (or any layer without a WMS source): manual swatches.
+      box.appendChild(manualSwatches(cfg));
+    }
   });
 
   if (!any) {
