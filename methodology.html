@@ -90,7 +90,7 @@
             consisted in:</p>
           <ol>
             <li>Download the CAMS European Air Quality Reanalysis (2023 hourly mesh dataset).</li>
-            <li>Assign projection <b>EPSG:4326 · WGS 84</b> to avoid compatibility issues.</li>
+            <li>Assign projection <b>EPSG:4326 - WGS 84</b> to avoid compatibility issues.</li>
             <li>Use the mesh calculator to average from Dec 1 to Dec 31.</li>
             <li>Rasterize the resulting mesh for later annual aggregation.</li>
             <li>Clip the raster to the country extent.</li>
@@ -139,12 +139,12 @@
             <li>Apply discrete symbology to the rate of change:</li>
           </ol>
           <ul class="legend-list" style="margin-left:1.1rem;">
-            <li><span class="swatch" style="background:var(--increase)"></span> <b>&gt; 0 μg/m³</b> — pollution increase
-              · "environmental risk zones."</li>
-            <li><span class="swatch" style="background:var(--decrease)"></span> <b>&lt; 0 μg/m³</b> — pollution decrease
-              · "improvement zones."</li>
-            <li><span class="swatch" style="background:var(--neutral)"></span> <b>≈ 0 μg/m³</b> — atmospheric stability
-              · no significant change.</li>
+            <li><span class="swatch" style="background:var(--increase)"></span> <b>&gt; 0 μg/m³</b> : pollution increase
+              - environmental risk zones.</li>
+            <li><span class="swatch" style="background:var(--decrease)"></span> <b>&lt; 0 μg/m³</b> : pollution decrease
+              - improvement zones.</li>
+            <li><span class="swatch" style="background:var(--neutral)"></span> <b>≈ 0 μg/m³</b> : atmospheric stability
+              - no significant change.</li>
           </ul>
           
         </div>
@@ -204,7 +204,7 @@
             made the dissolve operation prohibitively slow.<br><br>
 
             To overcome this limitation, the dissolve step was also tested in ArcGIS. Under the same conditions, ArcGIS
-            completed the operation in approximately 40 minutes, producing equivalent results. Consequently, both QGIS
+            completed the operation by using a multicore algorithm (Pairwise Dissolve) in approximately 40 minutes, producing equivalent results. Consequently, both QGIS
             and ArcGIS were used during this stage of the project, selecting the software that offered the most
             efficient implementation for each task.<br><br>
 
@@ -242,7 +242,7 @@
         <div class="step-num">08</div>
         <div>
           <h3>Population exposure (pie chart)</h3>
-          <p>TThe final step focuses on assessing the proportion of the population exposed to different pollutant
+          <p>The final step focuses on assessing the proportion of the population exposed to different pollutant
             concentration ranges for each pollutant. To effectively communicate these results, pie charts were generated
             to illustrate the percentage of the population falling within each concentration class.</p>
           <ul>
